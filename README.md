@@ -20,7 +20,7 @@ $ npm install -g baas-cli
 $ baas COMMAND
 running command...
 $ baas (--version)
-baas-cli/0.0.0 linux-x64 node-v16.17.0
+baas-cli/0.0.1 linux-x64 node-v16.17.0
 $ baas --help [COMMAND]
 USAGE
   $ baas COMMAND
@@ -31,6 +31,8 @@ USAGE
 <!-- commands -->
 * [`baas config load [SERVICE]`](#baas-config-load-service)
 * [`baas help [COMMANDS]`](#baas-help-commands)
+* [`baas import postgres`](#baas-import-postgres)
+* [`baas import rabbitmq`](#baas-import-rabbitmq)
 * [`baas install`](#baas-install)
 * [`baas plugins`](#baas-plugins)
 * [`baas plugins:install PLUGIN...`](#baas-pluginsinstall-plugin)
@@ -74,6 +76,34 @@ DESCRIPTION
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.5/src/commands/help.ts)_
 
+## `baas import postgres`
+
+import postgres database
+
+```
+USAGE
+  $ baas import postgres -h <value> -u <value> -p <value> [-P <value>]
+
+FLAGS
+  -P, --port=<value>      [default: 5432]
+  -h, --host=<value>      (required)
+  -p, --password=<value>  (required)
+  -u, --user=<value>      (required)
+
+DESCRIPTION
+  import postgres database
+
+EXAMPLES
+  $ baas import postgres
+```
+
+## `baas import rabbitmq`
+
+```
+USAGE
+  $ baas import rabbitmq
+```
+
 ## `baas install`
 
 Install cluster
@@ -86,7 +116,7 @@ DESCRIPTION
   Install cluster
 ```
 
-_See code: [dist/commands/install.ts](https://github.com/new/hello-world/blob/v0.0.0/dist/commands/install.ts)_
+_See code: [dist/commands/install.ts](https://github.com/new/hello-world/blob/v0.0.1/dist/commands/install.ts)_
 
 ## `baas plugins`
 
