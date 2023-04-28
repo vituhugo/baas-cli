@@ -16,11 +16,11 @@ oclif example Hello World CLI
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g baas
+$ npm install -g baas-cli
 $ baas COMMAND
 running command...
 $ baas (--version)
-baas/0.0.0 linux-x64 node-v16.17.0
+baas-cli/0.0.0 linux-x64 node-v16.17.0
 $ baas --help [COMMAND]
 USAGE
   $ baas COMMAND
@@ -29,9 +29,9 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`baas hello PERSON`](#baas-hello-person)
-* [`baas hello world`](#baas-hello-world)
+* [`baas config load [SERVICE]`](#baas-config-load-service)
 * [`baas help [COMMANDS]`](#baas-help-commands)
+* [`baas install`](#baas-install)
 * [`baas plugins`](#baas-plugins)
 * [`baas plugins:install PLUGIN...`](#baas-pluginsinstall-plugin)
 * [`baas plugins:inspect PLUGIN...`](#baas-pluginsinspect-plugin)
@@ -42,44 +42,16 @@ USAGE
 * [`baas plugins:uninstall PLUGIN...`](#baas-pluginsuninstall-plugin-2)
 * [`baas plugins update`](#baas-plugins-update)
 
-## `baas hello PERSON`
+## `baas config load [SERVICE]`
 
-Say hello
-
-```
-USAGE
-  $ baas hello PERSON -f <value>
-
-ARGUMENTS
-  PERSON  Person to say hello to
-
-FLAGS
-  -f, --from=<value>  (required) Who is saying hello
-
-DESCRIPTION
-  Say hello
-
-EXAMPLES
-  $ oex hello friend --from oclif
-  hello friend from oclif! (./src/commands/hello/index.ts)
-```
-
-_See code: [dist/commands/hello/index.ts](https://github.com/new/hello-world/blob/v0.0.0/dist/commands/hello/index.ts)_
-
-## `baas hello world`
-
-Say hello world
+load cluster config
 
 ```
 USAGE
-  $ baas hello world
+  $ baas config load [SERVICE]
 
 DESCRIPTION
-  Say hello world
-
-EXAMPLES
-  $ baas hello world
-  hello world! (./src/commands/hello/world.ts)
+  load cluster config
 ```
 
 ## `baas help [COMMANDS]`
@@ -101,6 +73,20 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.5/src/commands/help.ts)_
+
+## `baas install`
+
+Install cluster
+
+```
+USAGE
+  $ baas install
+
+DESCRIPTION
+  Install cluster
+```
+
+_See code: [dist/commands/install.ts](https://github.com/new/hello-world/blob/v0.0.0/dist/commands/install.ts)_
 
 ## `baas plugins`
 
