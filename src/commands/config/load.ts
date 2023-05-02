@@ -151,7 +151,7 @@ export default class LoadCommand extends Command {
     this.dockerComposeConfig.services[serviceName].env_file = [
       `${DEST_ENVS_PATH}/${serviceName}.env`,
       ...this.getDeploymentDevSecretNames(`${ROOT_PATH}/${this.dockerComposeConfig.services[serviceName].build.context}`),
-      ...this.dockerComposeConfig.services[serviceName].env_file,
+      ...(this.dockerComposeConfig.services[serviceName].env_file ?? []),
     ].filter((item, index, self) => self.indexOf(item) === index)
   }
 
