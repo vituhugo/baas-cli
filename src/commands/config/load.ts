@@ -131,7 +131,7 @@ export default class LoadCommand extends Command {
     const service = this.dockerComposeConfig.services[serviceName]
     const deploymentEnvs = this.getDeploymentDevEnvs(`${ROOT_PATH}/${service.build.context}`)
     const envConfig = this.loadEnv(`${DEST_ENVS_PATH}/${serviceName}.env`)
-    if (!envConfig.VIRTUAL_HOST && service.hostname) envConfig.VIRTUAL_HOST = service.hostname
+    if (this.isApi(serviceName)) envConfig.VIRTUAL_HOST = this.getVirtualHost(serviceName)
 
     for (const item of deploymentEnvs
     .filter(item => !envConfig[item.name ?? (item.valueFrom as any).secretKeyRef.key])) {
@@ -143,7 +143,7 @@ export default class LoadCommand extends Command {
       envConfig[prop] = this.loadConfig.replace[envConfig[prop]] ?? envConfig[prop]
     }
 
-    fs.writeFileSync(`${DEST_ENVS_PATH}/${serviceName}.env`, this.envToString(envConfig))
+    fs.writeFileSync(`${DEST_ENVS_PATH}/${serviceName}.env`, this.envToString({...envConfig, ...this.loadConfig.environment}))
   }
 
   private updateDockerCompose(serviceName: string) {
@@ -161,5 +161,13 @@ export default class LoadCommand extends Command {
 
     const envExample = dotenv.parse(fs.readFileSync(`${serviceRootPath}/.env.example`).toString())
     return envExample[envName] ?? null
+  }
+
+  private isApi(serviceName: string) {
+    return /(_apis_|_api$)/.test(serviceName)
+  }
+
+  private getVirtualHost(serviceName: string) {
+    return serviceName.replace('services_', '').split('_')[0] + '.localhost'
   }
 }

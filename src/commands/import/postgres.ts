@@ -2,7 +2,7 @@ import {Command, Flags} from '@oclif/core'
 import * as fs from 'node:fs'
 import {Client, ClientConfig} from 'pg'
 import {ROOT_PATH} from '../../constants'
-import {parse} from 'yaml'
+import {parse, stringify} from 'yaml'
 import {parse as envParse} from 'dotenv'
 import * as inquirer from 'inquirer'
 import {spawn} from 'node:child_process'
@@ -24,7 +24,61 @@ export default class PostgresImport extends Command {
   private configs: Record<string, ClientConfig> = {}
 
   public async run(): Promise<void> {
-    const {flags: dbRemoteConfig} = await this.parse(PostgresImport)
+    if (!fs.existsSync(`${ROOT_PATH}/config/databases.config.yml`)) {
+      fs.writeFileSync(`${ROOT_PATH}/config/databases.config.yml`, 'postgres: {}')
+    }
+
+    const databases = parse(fs.readFileSync(`${ROOT_PATH}/config/databases.config.yml`, 'utf8'))
+    if (!databases.postgres) databases.postgres = {}
+
+    let environment = 'create a new'
+    if (Object.keys(databases.postgres).length > 0) {
+      environment = (await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'environment',
+          message: 'Select the import source environment:',
+          choices: [...Object.keys(databases.postgres), 'create a new'],
+        },
+      ])).environment
+    }
+
+    if (environment === 'create a new') {
+      environment = (await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'environment',
+          message: 'Enter the environment name:',
+        },
+      ])).environment
+      databases.postgres[environment] = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'host',
+          message: 'Enter the host:',
+        },
+        {
+          type: 'input',
+          name: 'port',
+          message: 'Enter the port:',
+          default: '5432',
+        },
+        {
+          type: 'input',
+          name: 'user',
+          message: 'Enter the user:',
+        },
+        {
+          type: 'input',
+          name: 'password',
+          message: 'Enter the password:',
+        },
+      ])
+
+      fs.writeFileSync(`${ROOT_PATH}/config/databases.config.yml`, stringify(databases))
+    }
+
+    const dbRemoteConfig = databases.postgres[environment]
     const dbLocalConfig = this.resolveDbCredentials()
 
     this.configs = {
@@ -67,7 +121,7 @@ export default class PostgresImport extends Command {
     const env = dockerCompose.services[serviceName].env_file.find((envFile: string) => envFile.includes('-db'))
     if (!env) throw new Error(`The service ${serviceName} dont have database credentials.`)
     const config = {
-      ...envParse(fs.readFileSync(`${ROOT_PATH}/${env}`)),
+      ...envParse(fs.readFileSync(env)),
       ...envParse(fs.readFileSync(`${ROOT_PATH}/config/envs/${serviceName}.env`)),
     }
 
