@@ -20,7 +20,7 @@ $ npm install -g baas-cli
 $ baas COMMAND
 running command...
 $ baas (--version)
-baas-cli/0.0.1 linux-x64 node-v16.17.0
+baas-cli/0.0.2 linux-x64 node-v16.17.0
 $ baas --help [COMMAND]
 USAGE
   $ baas COMMAND
@@ -29,6 +29,7 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`baas config edit`](#baas-config-edit)
 * [`baas config load [SERVICE]`](#baas-config-load-service)
 * [`baas help [COMMANDS]`](#baas-help-commands)
 * [`baas import postgres`](#baas-import-postgres)
@@ -43,6 +44,43 @@ USAGE
 * [`baas plugins:uninstall PLUGIN...`](#baas-pluginsuninstall-plugin-1)
 * [`baas plugins:uninstall PLUGIN...`](#baas-pluginsuninstall-plugin-2)
 * [`baas plugins update`](#baas-plugins-update)
+
+## `baas config edit`
+
+describe the command here
+
+```
+USAGE
+  $ baas config edit [-s
+    backoffice_apis_backoffice-api|dashboard_apis_dashboard-api|services_authentication_api|services_dealer_apis_api|ser
+    vices_events_apis_query-api|services_events_workers_new-event|services_exchange_apis_exchange-api|services_exchange_
+    workers_buy-transaction-sent|services_exchange_workers_transaction-confirmed|services_exchange_workers_swap-transact
+    ion-sent|services_exchange_workers_swap-confirmed|services_internal-wallets_api|services_internal-wallets_jobs_execu
+    te-transaction|services_transactions_transactions-api|services_wallet-manager_api_api|services_ctcm_api|services_cas
+    h-flow_apis_cash-flow-api|services_cash-flow_jobs_create-balance|support_notifications_api|support_notifications_ema
+    il|support_big-gateway|support_digital-bank_api|support_digital-bank_jobs_transaction-send|services_nft_api|services
+    _webhooks_api|services_webhooks_workers_send-webhook|services_event-watch_api|services_event-watch_workers_event-wat
+    cher|services_telemetry_api|services_telemetry_workers_request-aggregation]
+
+FLAGS
+  -s, --serviceName=<option>
+      Service you would like to edit config
+      <options: backoffice_apis_backoffice-api|dashboard_apis_dashboard-api|services_authentication_api|services_dealer_ap
+      is_api|services_events_apis_query-api|services_events_workers_new-event|services_exchange_apis_exchange-api|services
+      _exchange_workers_buy-transaction-sent|services_exchange_workers_transaction-confirmed|services_exchange_workers_swa
+      p-transaction-sent|services_exchange_workers_swap-confirmed|services_internal-wallets_api|services_internal-wallets_
+      jobs_execute-transaction|services_transactions_transactions-api|services_wallet-manager_api_api|services_ctcm_api|se
+      rvices_cash-flow_apis_cash-flow-api|services_cash-flow_jobs_create-balance|support_notifications_api|support_notific
+      ations_email|support_big-gateway|support_digital-bank_api|support_digital-bank_jobs_transaction-send|services_nft_ap
+      i|services_webhooks_api|services_webhooks_workers_send-webhook|services_event-watch_api|services_event-watch_workers
+      _event-watcher|services_telemetry_api|services_telemetry_workers_request-aggregation>
+
+DESCRIPTION
+  describe the command here
+
+EXAMPLES
+  $ baas config edit
+```
 
 ## `baas config load [SERVICE]`
 
@@ -116,7 +154,7 @@ DESCRIPTION
   Install cluster
 ```
 
-_See code: [dist/commands/install.ts](https://github.com/new/hello-world/blob/v0.0.1/dist/commands/install.ts)_
+_See code: [dist/commands/install.ts](https://github.com/new/hello-world/blob/v0.0.2/dist/commands/install.ts)_
 
 ## `baas plugins`
 
